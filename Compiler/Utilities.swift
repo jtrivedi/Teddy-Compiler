@@ -1,0 +1,60 @@
+//
+//  Utilities.swift
+//  Compiler
+//
+//  Created by Janum Trivedi on 2/16/17.
+//  Copyright © 2017 Janum Trivedi. All rights reserved.
+//
+
+import Foundation
+
+private var expressions = [String: NSRegularExpression]()
+
+public extension String {
+    
+    public func match(regex: String) -> String? {
+        let expression: NSRegularExpression
+        if let exists = expressions[regex] {
+            expression = exists
+        }
+        else {
+            expression = try! NSRegularExpression(pattern: "^\(regex)", options: [])
+            expressions[regex] = expression
+        }
+        
+        let range = expression.rangeOfFirstMatch(in: self, options: [], range: NSMakeRange(0, self.utf16.count))
+        if range.location != NSNotFound {
+            return (self as NSString).substring(with: range)
+        }
+        
+        return nil
+    }
+    
+    public func trimLast() -> String {
+        return self.substring(to: self.index(before: self.endIndex))
+    }
+    
+    public static func printHeader(text: String, width: Int = 100 ) {
+        
+        print(String(repeating: "-", count: width));
+        print(String(repeating: " ", count: width));
+        
+        let padding = (width - text.characters.count) / 2
+        
+        print(String(repeating: " ", count: padding), terminator: "")
+        print(text, terminator: "")
+        print(String(repeating: " ", count: padding))
+        
+        print(String(repeating: " ", count: width));
+        print(String(repeating: "-", count: width));
+        
+        print()
+        
+        
+//        cout << "----------------------------------------" << endl;
+//        cout << "               EECS 183                 " << endl;
+//        cout << "          Rock-Paper-Scissors           " << endl;
+//        cout << "----------------------------------------" << endl << endl;
+    }
+    
+}

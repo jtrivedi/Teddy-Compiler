@@ -1,0 +1,13 @@
+
+func factorial(n: Int, x: Int) -> Float {
+    print(n, x * x);
+    return n * (n - 1);
+}
+
+func main() -> Int {
+    let i: Int = 500;
+    let cat: String = "moo";
+    print(cat, i);
+    factorial(20, 10);
+    return (i - 500);
+}
