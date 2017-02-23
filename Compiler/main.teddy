@@ -3,7 +3,7 @@ enum Expression {
     case Addition(lhs: Int, rhs: Int);
     case Subtraction(minuend: Int, subtrahend: Int);
     case Multiplication(multiplicant: Int, multiplier: Int);
-    case Division(dividend: Int, divisor: Int);
+    case division(dividend: Int, divisor: Int);
 }
 
 func evaluate(expression: Expression) -> Expression {
@@ -11,7 +11,7 @@ func evaluate(expression: Expression) -> Expression {
 }
 
 func main() -> Int {
-    let add: Expression = .Addition(10, 20);
+    let add: Expression = .division(20, 5);
     
     return 0;
 }

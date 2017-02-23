@@ -41,7 +41,27 @@ public extension String {
     
     }
     
-    public static func printHeader(text: String, width: Int = 100 ) {
+    public static func returnCommentHeader(text: String, width: Int = 100) -> IR {
+        var IR = "/*\n"
+        
+        IR.append(String(repeating: "-", count: width))
+        IR.append(String(repeating: " ", count: width))
+        
+        let padding = (width - text.characters.count) / 2
+        
+        IR.append(String(repeating: " ", count: padding))
+        IR.append(text)
+        IR.append(String(repeating: " ", count: padding))
+        
+        IR.append(String(repeating: " ", count: width))
+        IR.append(String(repeating: "-", count: width))
+        
+        IR.append("\n*/\n")
+        
+        return IR
+    }
+    
+    public static func printHeader(text: String, width: Int = 100) {
         
         print(String(repeating: "-", count: width));
         print(String(repeating: " ", count: width));

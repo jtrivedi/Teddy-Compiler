@@ -28,6 +28,7 @@ public struct CodeGenerator {
     let abstractSyntaxTree: [ExpressionType]
     
     func emit(to language: Language = .cpp) throws {
+        emitHeader()
         emitLibraryIncludes(libraries: .stdio)
         
         switch language {
@@ -37,6 +38,10 @@ public struct CodeGenerator {
         }
 
         abstractSyntaxTree.forEach { print($0.emit(to: language)) }
+    }
+    
+    func emitHeader() {
+        print(String.returnCommentHeader(text: "Compiled with the Teddy Compiler\nCopyright © Janum Trivedi"))
     }
     
     func emitNamespace() {
@@ -135,20 +140,6 @@ extension FieldAccessNode: IREmitable {
         return self.identifier
     }
 }
-
-//extension EnumNode: IREmitable {
-//    public func emit(to language: Language) -> IR {
-//        // TODO
-//        return ""
-//    }
-//}
-//
-//extension EnumCaseNode: IREmitable {
-//    public func emit(to language: Language) -> IR {
-//        // TODO
-//        return ""
-//    }
-//}
 
 extension IntegerNode: IREmitable {
     public func emit(to language: Language) -> IR {

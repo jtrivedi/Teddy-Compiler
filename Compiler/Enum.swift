@@ -47,7 +47,7 @@
 //    return result;
 //}
 
-private func emitStruct(structName: String, cases: [VariableNode], language: Language, areMembersPointers: Bool) -> IR {
+private func emitStruct(structName: String, cases: [VariableNode], language: Language) -> IR {
     
     var definition = ""
     definition.append("typedef struct \(structName) {\n")
@@ -58,10 +58,6 @@ private func emitStruct(structName: String, cases: [VariableNode], language: Lan
         let memberDeclaration = $0.emit(to: language).components(separatedBy: " ")
 
         let type = memberDeclaration[0]
-
-        // TODO: Remove?
-//        let pointer = areMembersPointers ? "*" : ""
-        let pointer = ""
         
         let identifier = memberDeclaration[1]
         
@@ -94,25 +90,13 @@ extension EnumDefinitionNode: IREmitable {
             cases.append(variableNode)
         }
 
-        let enumStructDefinition = emitStruct(structName: name, cases: cases, language: language, areMembersPointers: true)
+        let enumStructDefinition = emitStruct(structName: name, cases: cases, language: language)
         
         IR.append(enumStructDefinition)
         IR.append("\n")
         
         IR.append(emitEnumCaseInitFunctions(language: language))
-        
-        //Result* _resultCreateErrorCase() {
-        //    _ResultSuccess* success = NULL;
-        //    _ResultError* error = &(_ResultError) { };
-        //
-        //    Result* result = &(Result) {
-        //        .success = success,
-        //        .error = error
-        //    };
-        //    
-        //    return result;
-        //}
-        
+
         return IR
     }
     
@@ -190,19 +174,15 @@ extension EnumDefinitionNode: IREmitable {
 extension EnumCaseDefinitionNode: IREmitable {
     public func emit(to language: Language) -> IR {
         let structName = "_\(self.enumName + self.caseName)"
-        return emitStruct(structName: structName, cases: self.associatedValues, language: language, areMembersPointers: false)
+        return emitStruct(structName: structName, cases: self.associatedValues, language: language)
     }
 }
 
 extension EnumNode: IREmitable {
     public func emit(to language: Language) -> IR {
-        
         var IR = ""
-        
         let parameterList = self.arguments.map { $0.emit(to: language) }.joined(separator: ",")
         IR.append("_\(self.enumName)Create\(self.caseName)Case(\(parameterList))")
-//        IR.append("\n");
-        
         return IR
     }
 }
