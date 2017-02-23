@@ -24,7 +24,8 @@ public enum Token {
     case T_Bool()
     case T_Return()
     case T_Print()
-    
+    case T_Enum()
+    case T_Case()
     
     // MARK: - Expressions
     
@@ -66,6 +67,8 @@ public enum Token {
         case .T_Void():                           return 4    // void
         case .T_Return():                         return 6    // return
         case .T_Print():                          return 5    // print
+        case .T_Enum():                           return 4    // enum
+        case .T_Case():                           return 4    // case
             
         case .T_IntegerConstant(let value):       return String(value).characters.count
         case .T_FloatConstant(let value):         return String(value).characters.count
@@ -127,6 +130,12 @@ public enum Token {
         }
         else if let _ = input.match(regex: "print") {
             self = .T_Print()
+        }
+        else if let _ = input.match(regex: "enum") {
+            self = .T_Enum()
+        }
+        else if let _ = input.match(regex: "case") {
+            self = .T_Case()
         }
         
         

@@ -68,6 +68,16 @@ public struct FieldAccessNode: ExpressionType {
     let identifier: String
 }
 
+public struct EnumNode: ExpressionType {
+    let name: String
+    let cases: [EnumCaseNode]
+}
+
+public struct EnumCaseNode: ExpressionType {
+    let name: String
+    let associatedValues: [VariableNode]?
+}
+
 public struct IntegerNode: ExpressionType {
     let value: Int
 }

@@ -1,4 +1,5 @@
 
 enum Result {
-    case Success(result: Int)
+    case Success(result: Int);
+    case Error();
 }

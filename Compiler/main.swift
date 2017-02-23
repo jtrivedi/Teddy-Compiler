@@ -22,13 +22,13 @@ if let source = Loader.read(file: "/Users/janum/Dropbox/Development/Teddy/Compil
     let parser = Parser(tokens: tokens)
     let ast = try parser.parse()
     print(ast)
-
-    
-    
-    String.printHeader(text: "Code Generation (Target: C++)")
-    
-    let generator = CodeGenerator(abstractSyntaxTree: ast)
-    try generator.emit(to: .c)
-    
-    print()
+//
+//    
+//    
+//    String.printHeader(text: "Code Generation (Target: C++)")
+//    
+//    let generator = CodeGenerator(abstractSyntaxTree: ast)
+//    try generator.emit(to: .c)
+//    
+//    print()
 }

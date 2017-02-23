@@ -137,6 +137,20 @@ extension FieldAccessNode: IREmitable {
     }
 }
 
+extension EnumNode: IREmitable {
+    public func emit(to language: Language) -> IR {
+        // TODO
+        return ""
+    }
+}
+
+extension EnumCaseNode: IREmitable {
+    public func emit(to language: Language) -> IR {
+        // TODO
+        return ""
+    }
+}
+
 extension IntegerNode: IREmitable {
     public func emit(to language: Language) -> IR {
         return String(self.value)

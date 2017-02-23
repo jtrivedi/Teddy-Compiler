@@ -25,6 +25,7 @@ public enum ParseError: Error {
     case expectedType
     case expectedReturn
     case expectedVariableDeclaration
+    case expectedEnum
 }
 
 
@@ -75,7 +76,10 @@ public class Parser {
     func parseStatement() throws -> ExpressionType {
         switch peekCurrentToken() {
         case .T_Function():
-            return try parseDefinition()
+            return try parseFunctionDefinition()
+            
+        case .T_Enum():
+            return try parseEnumDefinition()
             
         case .T_Let():
             return try parseVariableDeclaration()
@@ -116,6 +120,56 @@ public class Parser {
         default:
             throw ParseError.expectedExpression
         }
+    }
+    
+    func parseEnumDefinition() throws -> EnumNode {
+//        enum Result {
+//            case Success(result: Int)
+//        }
+        
+        guard case Token.T_Enum() = popCurrentToken() else {
+            throw ParseError.expectedEnum
+        }
+        
+        guard case Token.T_Identifier(let enumName) = popCurrentToken() else {
+            throw ParseError.expectedIdentifier
+        }
+        
+        // Pop T_ParensOpen
+        let _ = popCurrentToken()
+        
+        var cases = [EnumCaseNode]()
+        
+        while true {
+            if case Token.T_BraceClose() = peekCurrentToken() {
+                let _ = popCurrentToken()
+                break
+            }
+            
+            if case Token.T_Case() = popCurrentToken() {
+                
+                guard case Token.T_Identifier(let caseName) = peekCurrentToken() else {
+                    throw ParseError.expectedIdentifier
+                }
+                
+                // Pop T_Identifier
+                let _ = popCurrentToken()
+                
+                // Parse argument list
+                let formals = try parsePrototypeArgumentList()
+                
+                // Pop T_Semicolon
+                let _ = popCurrentToken()
+                
+                let caseNode = EnumCaseNode(name: caseName, associatedValues: formals)
+                cases.append(caseNode)
+            }
+            
+        }
+        
+        let enumDefinition = EnumNode(name: enumName, cases: cases)
+        
+        return enumDefinition
     }
     
     func parseReturn() throws -> ReturnNode {
@@ -205,7 +259,7 @@ public class Parser {
         }
     }
     
-    func parseDefinition() throws -> FunctionNode {
+    func parseFunctionDefinition() throws -> FunctionNode {
         
         // Pop T_Function
         guard case Token.T_Function() = popCurrentToken() else {
