@@ -6,7 +6,7 @@
 //  Copyright © 2017 Janum Trivedi. All rights reserved.
 //
 
-if let source = Loader.read(file: "/Users/janum/Desktop/Compiler/Compiler/main.teddy") {
+if let source = Loader.read(file: "/Users/janum/Dropbox/Development/Teddy/Compiler/main.teddy") {
     
     String.printHeader(text: "Source Input")
     print(source)
@@ -28,7 +28,7 @@ if let source = Loader.read(file: "/Users/janum/Desktop/Compiler/Compiler/main.t
     String.printHeader(text: "Code Generation (Target: C++)")
     
     let generator = CodeGenerator(abstractSyntaxTree: ast)
-    try generator.emit()
+    try generator.emit(to: .c)
     
     print()
 }
