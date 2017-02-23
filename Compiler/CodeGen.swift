@@ -59,9 +59,8 @@ extension PrototypeNode: IREmitable {
 extension FunctionNode: IREmitable {
     public func emit(to language: Language) -> IR {
         let signature = self.prototype.emit(to: language).trimLast()
-        let body = self.body.map { $0.emit(to: language) }.joined(separator: "\n")
-        let definition = "\(signature) {\(body)}"
-        
+        let body = self.body.map { "\t" + $0.emit(to: language) }.joined(separator: "\n")
+        let definition = "\(signature) {\n\(body)\n}"
         return definition
     }
 }

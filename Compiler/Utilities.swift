@@ -34,6 +34,13 @@ public extension String {
         return self.substring(to: self.index(before: self.endIndex))
     }
     
+    public func camelCased() -> String {
+        let first = String(characters.prefix(1)).lowercased()
+        let other = String(characters.dropFirst())
+        return first + other
+    
+    }
+    
     public static func printHeader(text: String, width: Int = 100 ) {
         
         print(String(repeating: "-", count: width));

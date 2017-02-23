@@ -7,18 +7,45 @@
 //
 
 //typedef struct _ResultSuccess {
-//    char* result;
+//    char* value;
 //    int i;
-//} _ResultSuccess;
+//}_ResultSuccess;
 //
 //typedef struct _ResultError {
-//    
-//} _ResultError;
+//}_ResultError;
 //
 //typedef struct Result {
 //    _ResultSuccess* success;
 //    _ResultError* error;
-//} Result;
+//}Result;
+//
+//Result* _resultCreateSuccessCase(char* value, int i) {
+//    _ResultSuccess* success = &(_ResultSuccess) {
+//        .value = value,
+//        .i = i
+//    };
+//    
+//    _ResultError* error = NULL;
+//    
+//    Result* result = &(Result) {
+//        .success = success,
+//        .error = error
+//    };
+//    
+//    return result;
+//}
+//
+//Result* _resultCreateErrorCase() {
+//    _ResultSuccess* success = NULL;
+//    _ResultError* error = &(_ResultError) { };
+//    
+//    Result* result = &(Result) {
+//        .success = success,
+//        .error = error
+//    };
+//    
+//    return result;
+//}
 
 private func emitStruct(structName: String, cases: [VariableNode], language: Language, areMembersPointers: Bool) -> IR {
     
@@ -32,7 +59,9 @@ private func emitStruct(structName: String, cases: [VariableNode], language: Lan
 
         let type = memberDeclaration[0]
 
-        let pointer = areMembersPointers ? "*" : ""
+        // TODO: Remove?
+//        let pointer = areMembersPointers ? "*" : ""
+        let pointer = ""
         
         let identifier = memberDeclaration[1]
         
@@ -48,7 +77,7 @@ private func emitStruct(structName: String, cases: [VariableNode], language: Lan
 }
 
 
-extension EnumNode: IREmitable {
+extension EnumDefinitionNode: IREmitable {
     public func emit(to language: Language) -> IR {
         
         var IR = ""
@@ -61,21 +90,120 @@ extension EnumNode: IREmitable {
   
         for enumCase in self.cases {
             let typeNode = TypeNode(name: "_\(self.name + enumCase.caseName)")
-            let variableNode = VariableNode(mutability: .immutable, type: typeNode, identifier: enumCase.caseName.lowercased())
+            let variableNode = VariableNode(mutability: .immutable, type: typeNode, identifier: enumCase.caseName)
             cases.append(variableNode)
         }
 
         let enumStructDefinition = emitStruct(structName: name, cases: cases, language: language, areMembersPointers: true)
         
         IR.append(enumStructDefinition)
+        IR.append("\n")
+        
+        IR.append(emitEnumCaseInitFunctions(language: language))
+        
+        //Result* _resultCreateErrorCase() {
+        //    _ResultSuccess* success = NULL;
+        //    _ResultError* error = &(_ResultError) { };
+        //
+        //    Result* result = &(Result) {
+        //        .success = success,
+        //        .error = error
+        //    };
+        //    
+        //    return result;
+        //}
+        
+        return IR
+    }
+    
+    private func emitEnumCaseInitFunctions(language: Language) -> IR {
+        
+        var IR = ""
+        
+        for enumCase in self.cases {
+            
+            IR.append(self.name + " ")
+            
+            IR.append("_\(self.name)Create\(enumCase.caseName)Case")
+            IR.append("(")
+            IR.append(enumCase.associatedValues.map { $0.emit(to: language).trimLast() }.joined(separator: ","))
+            IR.append(")")
+            
+            IR.append(" {\n")
+            
+                
+            IR.append("\t\(self.name) \(self.name.camelCased()) = (\(self.name)) {\n")
+            
+            
+            for nullCaseName in self.cases {
+                IR.append("\t\t.\(nullCaseName.caseName) = 0,\n")
+            }
+            
+
+            IR.append("\t};\n")
+            
+            IR.append("\t")
+            
+            
+            // This is the case we should set a value for
+            let validCase = self.cases.filter({ $0.caseName == enumCase.caseName }).first!
+            
+            // ex., _ExpressionAddition
+            let caseTypeName = "_" + self.name + validCase.caseName
+            IR.append("\(caseTypeName) \(validCase.caseName) = (\(caseTypeName)) {")
+            IR.append("\n")
+
+            
+            // Use map over enumerate() to not emit trailing comma
+            let memberAssignExpressions = validCase.associatedValues.map {
+                let memberNameToSet = $0.identifier
+                
+                let expr = ".\(memberNameToSet) = \(memberNameToSet)"
+                return expr
+            }.joined(separator: ",\n\t\t")
+            
+            IR.append("\t\t" + memberAssignExpressions)
+            
+            IR.append("\n\t};\n")
+            
+            ///
+            /// Set the primary struct's member
+            ///
+            
+            IR.append("\t")
+            IR.append("\(self.name.camelCased()).\(validCase.caseName) = \(validCase.caseName);")
+            IR.append("\n")
+            
+            ///
+            
+            IR.append("\t")
+            IR.append("return \(self.name.camelCased());")
+            
+            IR.append("\n}\n")
+        }
+        
         
         return IR
     }
 }
 
-extension EnumCaseNode: IREmitable {
+extension EnumCaseDefinitionNode: IREmitable {
     public func emit(to language: Language) -> IR {
         let structName = "_\(self.enumName + self.caseName)"
         return emitStruct(structName: structName, cases: self.associatedValues, language: language, areMembersPointers: false)
     }
 }
+
+extension EnumNode: IREmitable {
+    public func emit(to language: Language) -> IR {
+        
+        var IR = ""
+        
+        let parameterList = self.arguments.map { $0.emit(to: language) }.joined(separator: ",")
+        IR.append("_\(self.enumName)Create\(self.caseName)Case(\(parameterList))")
+//        IR.append("\n");
+        
+        return IR
+    }
+}
+

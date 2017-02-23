@@ -105,6 +105,9 @@ public class Parser {
         case .T_Identifier(_):
             return try parseIdentifierOrFunctionCall()
             
+//        case .T_Period():
+//            return try parseEnumCase();
+            
         case .T_IntegerConstant(_):
             return try parseInteger()
             
@@ -122,7 +125,7 @@ public class Parser {
         }
     }
     
-    func parseEnumDefinition() throws -> EnumNode {
+    func parseEnumDefinition() throws -> EnumDefinitionNode {
 //        enum Result {
 //            case Success(result: Int)
 //        }
@@ -138,7 +141,7 @@ public class Parser {
         // Pop T_ParensOpen
         let _ = popCurrentToken()
         
-        var cases = [EnumCaseNode]()
+        var cases = [EnumCaseDefinitionNode]()
         
         while true {
             if case Token.T_BraceClose() = peekCurrentToken() {
@@ -161,13 +164,13 @@ public class Parser {
                 // Pop T_Semicolon
                 let _ = popCurrentToken()
                 
-                let caseNode = EnumCaseNode(enumName: enumName, caseName: caseName, associatedValues: formals)
+                let caseNode = EnumCaseDefinitionNode(enumName: enumName, caseName: caseName, associatedValues: formals)
                 cases.append(caseNode)
             }
             
         }
         
-        return EnumNode(name: enumName, cases: cases)
+        return EnumDefinitionNode(name: enumName, cases: cases)
     }
     
     func parseReturn() throws -> ReturnNode {
@@ -194,6 +197,26 @@ public class Parser {
         let _ = popCurrentToken()
         
         return PrintNode(printExpressions: expressions)
+    }
+    
+    func parseEnumCase(enumType: TypeNode) throws -> EnumNode {
+        // .Addition()
+        // .Addition(x, y)
+        
+        guard case Token.T_Period() = popCurrentToken() else {
+            throw ParseError.expectedCharacter(".")
+        }
+        
+        let caseName = try readIdentifier()
+        
+        let arguments = try parseExpressionCallList()
+        
+        let rhsValue = EnumNode(enumName: enumType.name, caseName: caseName, arguments: arguments)
+        
+        return rhsValue
+        
+//        let enumCase = EnumCaseNode(enumName: "todo", caseName: caseName, associatedValues: arguments)
+        
     }
     
     func parseVariableDeclaration() throws -> ExpressionType {
@@ -224,17 +247,44 @@ public class Parser {
             // Pop T_Semicolon
             let _ = popCurrentToken()
         }
+
         else if case Token.T_Equal() = peekCurrentToken() {
             // Pop T_Equal
             let _ = popCurrentToken()
             
-            let assignValue = try parseExpression()
+            if case Token.T_Period() = peekCurrentToken() {
+                // Assign expression is an enum
+                // Special case
+                
+                let assignValue = try parseEnumCase(enumType: type)
+                
+                let variable = VariableNode(mutability: mutability, type: type, identifier: identifier)
+                
+                // Pop T_Semicolon
+                let _ = popCurrentToken()
+                
+                return AssignExpression(variable: variable, value: assignValue)
+                
+            }
+            else {
+                // Standard assign expression
+                
+                let assignValue = try parseExpression()
+                
+                let variable = VariableNode(mutability: mutability, type: type, identifier: identifier)
+                
+                let _ = popCurrentToken()
+                
+                return AssignExpression(variable: variable, value: assignValue)
+            }
             
-            let variable = VariableNode(mutability: mutability, type: type, identifier: identifier)
-            
-            let _ = popCurrentToken()
-            
-            return AssignExpression(variable: variable, value: assignValue)
+//            let assignValue = try parseExpression()
+//            
+//            let variable = VariableNode(mutability: mutability, type: type, identifier: identifier)
+//            
+//            let _ = popCurrentToken()
+//            
+//            return AssignExpression(variable: variable, value: assignValue)
         }
         else {
             throw ParseError.expectedCharacter(";")
@@ -370,15 +420,35 @@ public class Parser {
     }
     
     func parseIdentifierOrFunctionCall() throws -> ExpressionType {
+        
+        // TODO: ArithmeticExpression.Addition
+        
         let name = try readIdentifier()
         
-        guard tokensAvailable() else {
-            return FieldAccessNode(identifier: name)
-        }
+        // TODO: This ignores a semicolon
+//        guard tokensAvailable() else {
+//            return FieldAccessNode(identifier: name)
+//        }
+        
+        
+//        if case Token.T_Period() = peekCurrentToken() {
+//            // Arithmetic.Addition()
+//            // enum case
+//            
+//            let enumTypeName = name
+//            
+//            // Pop T_Period
+////            let _ = popCurrentToken()
+//            
+//            let enumCaseName = try parseEnumCase()
+//        }
+//        
         
         guard case Token.T_ParensOpen() = peekCurrentToken() else {
             return FieldAccessNode(identifier: name)
         }
+        
+        
         
         let arguments = try parseExpressionCallList()
         

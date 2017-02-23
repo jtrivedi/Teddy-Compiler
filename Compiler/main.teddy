@@ -1,19 +1,17 @@
 
-enum Duration {
-    case Second(value: String, val: Float);
-    case Minute(value: Int);
-    case Hour(value: Int);
+enum Expression {
+    case Addition(lhs: Int, rhs: Int);
+    case Subtraction(minuend: Int, subtrahend: Int);
+    case Multiplication(multiplicant: Int, multiplier: Int);
+    case Division(dividend: Int, divisor: Int);
 }
 
-enum Run {
-    case Duration(duration: Duration);
-}
-
-func convert(time: Duration) -> String {
-    return "todo";
+func evaluate(expression: Expression) -> Expression {
+    return expression;
 }
 
 func main() -> Int {
-    let value: Int = (5 + 10);
-    return value;
+    let add: Expression = .Addition(10, 20);
+    
+    return 0;
 }

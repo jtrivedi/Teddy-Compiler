@@ -52,6 +52,7 @@ public enum Token {
     case T_BraceOpen()
     case T_BraceClose()
     case T_Comma()
+    case T_Period()
     
     
     // MARK: - Properties
@@ -84,6 +85,7 @@ public enum Token {
         case .T_ParensOpen(), .T_ParensClose():   return 1
         case .T_BraceOpen(), .T_BraceClose():     return 1
         case .T_Comma():                          return 1
+        case .T_Period():                         return 1
         }
     }
     
@@ -185,6 +187,9 @@ public enum Token {
         }
         else if let _ = input.match(regex: "\\,") {
             self = .T_Comma()
+        }
+        else if let _ = input.match(regex: "\\.") {
+            self = .T_Period()
         }
 
             
