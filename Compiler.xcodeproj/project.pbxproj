@@ -13,6 +13,7 @@
 		F7193EED1E565ABA00C534B0 /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7193EEC1E565ABA00C534B0 /* Loader.swift */; };
 		F7193EF01E5C083A00C534B0 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7193EEF1E5C083A00C534B0 /* Node.swift */; };
 		F7193EF21E5C10CE00C534B0 /* CodeGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7193EF11E5C10CE00C534B0 /* CodeGen.swift */; };
+		F7EEA2391E5E980400EC8E5E /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7EEA2381E5E980400EC8E5E /* Enum.swift */; };
 		F7FF47B41E450CA600F258DC /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FF47B31E450CA600F258DC /* Lexer.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +37,7 @@
 		F7193EEE1E565B1500C534B0 /* main.teddy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.teddy; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		F7193EEF1E5C083A00C534B0 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		F7193EF11E5C10CE00C534B0 /* CodeGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeGen.swift; sourceTree = "<group>"; };
+		F7EEA2381E5E980400EC8E5E /* Enum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enum.swift; sourceTree = "<group>"; };
 		F7FF47B01E450CA600F258DC /* Compiler */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Compiler; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7FF47B31E450CA600F258DC /* Lexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lexer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -77,6 +79,7 @@
 				F7193EEA1E56597F00C534B0 /* Parser.swift */,
 				F7193EEF1E5C083A00C534B0 /* Node.swift */,
 				F7193EF11E5C10CE00C534B0 /* CodeGen.swift */,
+				F7EEA2381E5E980400EC8E5E /* Enum.swift */,
 				F7193EE61E564CEB00C534B0 /* Utilities.swift */,
 			);
 			path = Compiler;
@@ -143,6 +146,7 @@
 			files = (
 				F7193EEB1E56597F00C534B0 /* Parser.swift in Sources */,
 				F7193EE71E564CEB00C534B0 /* Utilities.swift in Sources */,
+				F7EEA2391E5E980400EC8E5E /* Enum.swift in Sources */,
 				F7FF47B41E450CA600F258DC /* Lexer.swift in Sources */,
 				F7193EF01E5C083A00C534B0 /* Node.swift in Sources */,
 				F7193EE91E564DAF00C534B0 /* main.swift in Sources */,

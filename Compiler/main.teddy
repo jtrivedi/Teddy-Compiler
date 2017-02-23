@@ -1,5 +1,19 @@
 
-enum Result {
-    case Success(result: Int);
-    case Error();
+enum Duration {
+    case Second(value: String, val: Float);
+    case Minute(value: Int);
+    case Hour(value: Int);
+}
+
+enum Run {
+    case Duration(duration: Duration);
+}
+
+func convert(time: Duration) -> String {
+    return "todo";
+}
+
+func main() -> Int {
+    let value: Int = (5 + 10);
+    return value;
 }

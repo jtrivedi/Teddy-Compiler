@@ -161,15 +161,13 @@ public class Parser {
                 // Pop T_Semicolon
                 let _ = popCurrentToken()
                 
-                let caseNode = EnumCaseNode(name: caseName, associatedValues: formals)
+                let caseNode = EnumCaseNode(enumName: enumName, caseName: caseName, associatedValues: formals)
                 cases.append(caseNode)
             }
             
         }
         
-        let enumDefinition = EnumNode(name: enumName, cases: cases)
-        
-        return enumDefinition
+        return EnumNode(name: enumName, cases: cases)
     }
     
     func parseReturn() throws -> ReturnNode {

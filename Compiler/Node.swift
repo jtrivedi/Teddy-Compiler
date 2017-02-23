@@ -74,8 +74,9 @@ public struct EnumNode: ExpressionType {
 }
 
 public struct EnumCaseNode: ExpressionType {
-    let name: String
-    let associatedValues: [VariableNode]?
+    let enumName: String
+    let caseName: String
+    let associatedValues: [VariableNode]
 }
 
 public struct IntegerNode: ExpressionType {
