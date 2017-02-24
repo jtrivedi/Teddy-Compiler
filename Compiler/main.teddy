@@ -1,5 +1,20 @@
+enum Expr {
+    case add(lhs: Int, rhs: Int);
+    case subtract(lhs: Int, rhs: Int);
+}
 
-func foo() {
+func main() -> Int {
     
+    let expr: Expr = .add(5, 10);
+    
+    if true {
+        
+    }
+    
+    if let expr: Expr = .add(a: Int, b: Int) {
+        print(5);
+    }
+    
+    return 0;
     
 }

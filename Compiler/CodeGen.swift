@@ -121,6 +121,26 @@ extension TypeNode: IREmitable {
     }
 }
 
+extension IfStatementNode: IREmitable {
+    public func emit(to language: Language) -> IR {
+        
+        var IR = ""
+        
+        IR.append("if (\(self.conditional.emit(to: language))) {\n")
+        IR.append(body.map { "\t" + $0.emit(to: language) }.joined(separator: "\n"))
+        
+        IR.append("}")
+        
+        return IR
+    }
+}
+
+extension IfLetNode: IREmitable {
+    public func emit(to language: Language) -> IR {
+        return ""
+    }
+}
+
 extension VariableNode: IREmitable {
     public func emit(to language: Language) -> IR {
         return "\(type.emit(to: language)) \(self.identifier);"
@@ -156,6 +176,12 @@ extension FloatNode: IREmitable {
 extension StringNode: IREmitable {
     public func emit(to language: Language) -> IR {
         return self.value
+    }
+}
+
+extension BoolNode: IREmitable {
+    public func emit(to language: Language) -> IR {
+        return value ? "1" : "0"
     }
 }
 

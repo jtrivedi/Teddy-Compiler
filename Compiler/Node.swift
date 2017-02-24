@@ -65,18 +65,20 @@ extension EnumTestNode: IREmitable {
     }
 }
 
+
+public typealias ConditionalExpression = ExpressionType
+
+public struct IfStatementNode: ExpressionType {
+    let conditional: ConditionalExpression
+    let body: [ExpressionType]
+}
+
 public struct IfLetNode: ExpressionType {
 
     let testVariable: VariableNode
     let unwrappedVariables: [VariableNode]
     
     let body: [ExpressionType]
-}
-
-extension IfLetNode: IREmitable {
-    public func emit(to language: Language) -> IR {
-        return ""
-    }
 }
 
 
@@ -108,9 +110,7 @@ public struct EnumCaseDefinitionNode: ExpressionType {
 public struct EnumNode: ExpressionType {
     // ... = .Addition(10, 20)
     let enumName: String
-    
-//    let enumDefinition: EnumDefinitionNode
-    
+
     let caseName: String
     let arguments: [ExpressionType]
 }
@@ -125,6 +125,10 @@ public struct FloatNode: ExpressionType {
 
 public struct StringNode: ExpressionType {
     let value: String
+}
+
+public struct BoolNode: ExpressionType {
+    let value: Bool
 }
 
 public struct BinaryOperationNode: ExpressionType {
