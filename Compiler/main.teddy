@@ -1,19 +1,5 @@
 
-enum Expression {
-    case Addition(lhs: Int, rhs: Int);
-    case Subtraction(minuend: Int, subtrahend: Int);
-    case Multiplication(multiplicant: Int, multiplier: Int);
-    case division(dividend: Int, divisor: Int);
-}
-
-func evaluate(expression: Expression) -> Expression {
-    return expression;
-}
-
-func main() -> Int {
-    let add: Expression = .division(20, 5);
+func foo() {
     
     
-    
-    return 0;
 }

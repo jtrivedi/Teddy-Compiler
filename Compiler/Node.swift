@@ -54,6 +54,32 @@ public struct VariableNode: ExpressionType {
     let identifier: String
 }
 
+public struct EnumTestNode: ExpressionType {
+    let testEnum: VariableNode
+    let targetCase: String
+}
+
+extension EnumTestNode: IREmitable {
+    public func emit(to language: Language) -> IR {
+        return ""
+    }
+}
+
+public struct IfLetNode: ExpressionType {
+
+    let testVariable: VariableNode
+    let unwrappedVariables: [VariableNode]
+    
+    let body: [ExpressionType]
+}
+
+extension IfLetNode: IREmitable {
+    public func emit(to language: Language) -> IR {
+        return ""
+    }
+}
+
+
 public struct TypeNode: ExpressionType {
     let name: String
     
