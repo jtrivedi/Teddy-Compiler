@@ -61,7 +61,7 @@ private func emitStruct(structName: String, cases: [VariableNode], language: Lan
         
         let identifier = memberDeclaration[1]
         
-        definition.append("\(type)\(pointer) \(identifier)")
+        definition.append("\(type) \(identifier)")
         
         definition.append("\n")
     }

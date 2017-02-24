@@ -45,17 +45,23 @@ public extension String {
         var IR = "/*\n"
         
         IR.append(String(repeating: "-", count: width))
+        IR.append("\n")
+        
         IR.append(String(repeating: " ", count: width))
+        IR.append("\n")
         
         let padding = (width - text.characters.count) / 2
         
         IR.append(String(repeating: " ", count: padding))
         IR.append(text)
+    
         IR.append(String(repeating: " ", count: padding))
+        IR.append("\n")
         
         IR.append(String(repeating: " ", count: width))
-        IR.append(String(repeating: "-", count: width))
+        IR.append("\n")
         
+        IR.append(String(repeating: "-", count: width))
         IR.append("\n*/\n")
         
         return IR

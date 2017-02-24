@@ -41,7 +41,7 @@ public struct CodeGenerator {
     }
     
     func emitHeader() {
-        print(String.returnCommentHeader(text: "Compiled with the Teddy Compiler\nCopyright © Janum Trivedi"))
+        print(String.returnCommentHeader(text: "Compiled with the Teddy Compiler. Copyright © Janum Trivedi"))
     }
     
     func emitNamespace() {
