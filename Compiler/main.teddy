@@ -2,14 +2,14 @@
 enum Operation {
     case Addition(lhs: Int, rhs: Int);
     case Subtraction(lhs: Int, rhs: Int);
-    case Multiplication(lhs: Int, rhs: Int);
-    case Division(lhs: Int, rhs: Int);
+//    case Multiplication(lhs: Int, rhs: Int);
+//    case Division(lhs: Int, rhs: Int);
 }
 
 
 func main() -> Int {
     
-    let expr: Operation = .Addition(10, 20);
+//  let expr: Operation = .Addition(10, 20);
     
     return 0;
     
