@@ -8,12 +8,6 @@
 
 import Foundation
 
-//
-// Expression   ->   Constant | Identifier | (Expression)
-//
-//
-//
-
 public enum ParseError: Error {
     case expectedCharacter(String)
     case expectedIdentifier
@@ -138,7 +132,7 @@ public class Parser {
         }
         
         if case Token.T_Let() = peekCurrentToken() {
-//            return try parseIfLetStatement()
+            return try parseIfLetStatement()
         }
         
         let conditionalExpression = try parseExpression()
@@ -148,42 +142,51 @@ public class Parser {
         return IfStatementNode(conditional: conditionalExpression, body: block)
     }
     
-    func parseIfLetStatement() throws -> IfLetNode {
-        guard case Token.T_Let() = popCurrentToken() else {
-            throw ParseError.expectedCharacter("let")
-        }
+    func parseIfLetStatement() throws -> IfStatementNode {
         
-        guard case let Token.T_Identifier(identifier) = popCurrentToken() else {
-            throw ParseError.expectedIdentifier
-        }
+        let declaration = try parseVariableDeclaration()
         
-        // Pop T_Colon
-        let _ = popCurrentToken()
+        print(declaration)
         
-        let typeName = try parseType()
-        
-        // Pop T_Equal
-        let _ = popCurrentToken()
-        
-        // Pop T_Period
-        let _ = popCurrentToken()
-        
-        guard case let Token.T_Identifier(caseName) = popCurrentToken() else {
-            throw ParseError.expectedIdentifier
-        }
-        
-        let formals = try parsePrototypeArgumentList()
-        
-        let conditionalBlock = try parseBlock()
-
-        let testVariable = VariableNode(mutability: .immutable, type: typeName, identifier: identifier)
-        
-        let enumTestNode = EnumTestNode(testEnum: testVariable, targetCase: caseName)
-        
-        
-        return IfLetNode(testVariable: testVariable, unwrappedVariables: formals, body: conditionalBlock)
-        
+        throw ParseError.expectedType
     }
+    
+//    func parseIfLetStatement() throws -> IfStatementNode {
+//        guard case Token.T_Let() = popCurrentToken() else {
+//            throw ParseError.expectedCharacter("let")
+//        }
+//        
+//        guard case let Token.T_Identifier(identifier) = popCurrentToken() else {
+//            throw ParseError.expectedIdentifier
+//        }
+//        
+//        // Pop T_Colon
+//        let _ = popCurrentToken()
+//        
+//        let typeName = try parseType()
+//        
+//        // Pop T_Equal
+//        let _ = popCurrentToken()
+//        
+//        // Pop T_Period
+//        let _ = popCurrentToken()
+//        
+//        guard case let Token.T_Identifier(caseName) = popCurrentToken() else {
+//            throw ParseError.expectedIdentifier
+//        }
+//        
+//        let formals = try parsePrototypeArgumentList()
+//        
+//        let conditionalBlock = try parseBlock()
+//
+//        let testVariable = VariableNode(mutability: .immutable, type: typeName, identifier: identifier)
+//        
+//        let enumTestNode = EnumTestNode(testEnum: testVariable, targetCase: caseName)
+//        
+//        
+//        return IfLetNode(testVariable: testVariable, unwrappedVariables: formals, body: conditionalBlock)
+//        
+//    }
     
     func parseBlock() throws -> [ExpressionType] {
         // Pop T_BraceOpen
