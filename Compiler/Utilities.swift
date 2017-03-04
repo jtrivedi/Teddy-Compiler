@@ -22,7 +22,7 @@ public extension String {
             expressions[regex] = expression
         }
         
-        let range = expression.rangeOfFirstMatch(in: self, options: [], range: NSMakeRange(0, self.utf16.count))
+        let range = expression.rangeOfFirstMatch(in: self, options: [], range: NSMakeRange(0, utf16.count))
         if range.location != NSNotFound {
             return (self as NSString).substring(with: range)
         }
