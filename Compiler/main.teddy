@@ -1,16 +1,30 @@
 
-enum Operation {
-    case Addition(lhs: Int, rhs: Int);
-    case Subtraction(lhs: Int, rhs: Int);
-//    case Multiplication(lhs: Int, rhs: Int);
-//    case Division(lhs: Int, rhs: Int);
+enum Expr {
+    case Add        (lhs: Int, rhs: Int);
+    case Subtract   (lhs: Int, rhs: Int);
+    case Multiply   (lhs: Int, rhs: Int);
+    case Divide     (lhs: Int, rhs: Int);
 }
 
+func squared(a: Int) -> Int {
+    return a * a;
+}
 
 func main() -> Int {
     
-//  let expr: Operation = .Addition(10, 20);
+    let i: Int = 500;
+    let cat: String = "moo";
+    print(cat, i);
+    
+    let expr: Expr = .Add(5, 10);
+    
+    if let expr: Expr = .Add(a, b) {
+        
+    }
+
+    if (true) {
+        print("moo");
+    }
     
     return 0;
-    
 }

@@ -131,61 +131,32 @@ public class Parser {
             throw ParseError.expectedCharacter("if")
         }
         
+//        let expr = try parseStatement()
+        
+        var expr: ExpressionType! = nil
+        
         if case Token.T_Let() = peekCurrentToken() {
-            return try parseIfLetStatement()
+            
+            let letBindingExpr = try parseStatement()
+            expr = letBindingExpr
+            
+            // Return an IfLetNode instead of an IfStatementNode
+            // IfLetNode will emit special IR
+        }
+        else {
+            let conditionalExpression = try parseExpression()
+            expr = conditionalExpression
         }
         
-        let conditionalExpression = try parseExpression()
         
         let block = try parseBlock()
         
-        return IfStatementNode(conditional: conditionalExpression, body: block)
-    }
-    
-    func parseIfLetStatement() throws -> IfStatementNode {
-        
-        let declaration = try parseVariableDeclaration()
-        
-        print(declaration)
-        
-        throw ParseError.expectedType
+        return IfStatementNode(conditional: expr, body: block)
     }
     
 //    func parseIfLetStatement() throws -> IfStatementNode {
-//        guard case Token.T_Let() = popCurrentToken() else {
-//            throw ParseError.expectedCharacter("let")
-//        }
-//        
-//        guard case let Token.T_Identifier(identifier) = popCurrentToken() else {
-//            throw ParseError.expectedIdentifier
-//        }
-//        
-//        // Pop T_Colon
-//        let _ = popCurrentToken()
-//        
-//        let typeName = try parseType()
-//        
-//        // Pop T_Equal
-//        let _ = popCurrentToken()
-//        
-//        // Pop T_Period
-//        let _ = popCurrentToken()
-//        
-//        guard case let Token.T_Identifier(caseName) = popCurrentToken() else {
-//            throw ParseError.expectedIdentifier
-//        }
-//        
-//        let formals = try parsePrototypeArgumentList()
-//        
-//        let conditionalBlock = try parseBlock()
-//
-//        let testVariable = VariableNode(mutability: .immutable, type: typeName, identifier: identifier)
-//        
-//        let enumTestNode = EnumTestNode(testEnum: testVariable, targetCase: caseName)
-//        
-//        
-//        return IfLetNode(testVariable: testVariable, unwrappedVariables: formals, body: conditionalBlock)
-//        
+//        let declaration = try parseVariableDeclaration()
+//        throw ParseError.expectedType
 //    }
     
     func parseBlock() throws -> [ExpressionType] {
@@ -337,8 +308,14 @@ public class Parser {
                 
                 let variable = VariableNode(mutability: mutability, type: type, identifier: identifier)
                 
+                
+                if case Token.T_Semicolon() = peekCurrentToken() {
+                    let _ = popCurrentToken()
+                }
+                
+                
                 // Pop T_Semicolon
-                let _ = popCurrentToken()
+//                let _ = popCurrentToken()
                 
                 return AssignExpression(variable: variable, value: assignValue)
                 
