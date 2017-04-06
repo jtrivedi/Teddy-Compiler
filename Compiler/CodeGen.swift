@@ -14,7 +14,6 @@ public protocol IREmitable {
 
 public enum Language {
     case c
-    case cpp
 }
 
 public enum Library: String {
@@ -27,15 +26,9 @@ public struct CodeGenerator {
     
     let abstractSyntaxTree: [ExpressionType]
     
-    func emit(to language: Language = .cpp) throws {
+    func emit(to language: Language = .c) throws {
         emitHeader()
         emitLibraryIncludes(libraries: .stdio)
-        
-        switch language {
-        case .cpp:
-            emitNamespace()
-        default: break
-        }
 
         abstractSyntaxTree.forEach { print($0.emit(to: language)) }
     }
@@ -81,8 +74,6 @@ extension PrintNode: IREmitable {
         switch language {
         case .c:
             return printExpressions.map { return "printf(\"%s\\n\", \($0.emit(to: language)));" }.joined(separator: "\n")
-        case .cpp:
-            return printExpressions.map { return "cout << \($0.emit(to: language)) << endl;" }.joined(separator: "\n")
         }
         
     }
@@ -98,16 +89,6 @@ extension CallNode: IREmitable {
 extension TypeNode: IREmitable {
     public func emit(to language: Language) -> IR {
         switch language {
-        case .cpp:
-            switch self.name {
-            case "String": return "string"
-            case "Int": return "int"
-            case "Float": return "float"
-            case "Void": return "void"
-            case "Bool": return "bool"
-            default: return self.name
-            }
-
         case .c:
             switch self.name {
             case "String": return "char*"
