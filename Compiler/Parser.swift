@@ -130,9 +130,6 @@ public class Parser {
         guard case Token.T_If() = popCurrentToken() else {
             throw ParseError.expectedCharacter("if")
         }
-        
-//        let expr = try parseStatement()
-        
         var expr: ExpressionType! = nil
         
         if case Token.T_Let() = peekCurrentToken() {
@@ -140,7 +137,7 @@ public class Parser {
             let letBindingExpr = try parseStatement()
             expr = letBindingExpr
             
-            // Return an IfLetNode instead of an IfStatementNode
+            // TODO: Return an IfLetNode instead of an IfStatementNode
             // IfLetNode will emit special IR
         }
         else {
@@ -153,11 +150,6 @@ public class Parser {
         
         return IfStatementNode(conditional: expr, body: block)
     }
-    
-//    func parseIfLetStatement() throws -> IfStatementNode {
-//        let declaration = try parseVariableDeclaration()
-//        throw ParseError.expectedType
-//    }
     
     func parseBlock() throws -> [ExpressionType] {
         // Pop T_BraceOpen
@@ -312,13 +304,8 @@ public class Parser {
                 if case Token.T_Semicolon() = peekCurrentToken() {
                     let _ = popCurrentToken()
                 }
-                
-                
-                // Pop T_Semicolon
-//                let _ = popCurrentToken()
-                
-                return AssignExpression(variable: variable, value: assignValue)
-                
+
+                return AssignExpression(variable: variable, value: assignValue)                
             }
             else {
                 // Standard assign expression
