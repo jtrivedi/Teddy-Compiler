@@ -6,49 +6,7 @@
 //  Copyright © 2017 Janum Trivedi. All rights reserved.
 //
 
-//typedef struct _ResultSuccess {
-//    char* value;
-//    int i;
-//}_ResultSuccess;
-//
-//typedef struct _ResultError {
-//}_ResultError;
-//
-//typedef struct Result {
-//    _ResultSuccess* success;
-//    _ResultError* error;
-//}Result;
-//
-//Result* _resultCreateSuccessCase(char* value, int i) {
-//    _ResultSuccess* success = &(_ResultSuccess) {
-//        .value = value,
-//        .i = i
-//    };
-//    
-//    _ResultError* error = NULL;
-//    
-//    Result* result = &(Result) {
-//        .success = success,
-//        .error = error
-//    };
-//    
-//    return result;
-//}
-//
-//Result* _resultCreateErrorCase() {
-//    _ResultSuccess* success = NULL;
-//    _ResultError* error = &(_ResultError) { };
-//    
-//    Result* result = &(Result) {
-//        .success = success,
-//        .error = error
-//    };
-//    
-//    return result;
-//}
-
 private func emitStruct(structName: String, cases: [VariableNode], language: Language) -> IR {
-    
     var definition = ""
     definition.append("typedef struct \(structName) {\n")
     

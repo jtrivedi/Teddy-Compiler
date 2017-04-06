@@ -1,19 +1,30 @@
 
-enum Expression {
-    case Addition(lhs: Int, rhs: Int);
-    case Subtraction(minuend: Int, subtrahend: Int);
-    case Multiplication(multiplicant: Int, multiplier: Int);
-    case division(dividend: Int, divisor: Int);
+enum Expr {
+    case Add        (lhs: Int, rhs: Int);
+    case Subtract   (lhs: Int, rhs: Int);
+    case Multiply   (lhs: Int, rhs: Int);
+    case Divide     (lhs: Int, rhs: Int);
 }
 
-func evaluate(expression: Expression) -> Expression {
-    return expression;
+func squared(a: Int) -> Int {
+    return a * a;
 }
 
 func main() -> Int {
-    let add: Expression = .division(20, 5);
     
+    let i: Int = 500;
+    let cat: String = "moo";
+    print(cat, i);
     
+    let expr: Expr = .Add(5, 10);
+    
+    if let expr: Expr = .Add(a, b) {
+        
+    }
+
+    if (true) {
+        print("moo");
+    }
     
     return 0;
 }

@@ -22,9 +22,9 @@ let foo = FooStruct(a: 10, b: 20)
 let bar = BarStruct(a: "a", b: "b", foo: foo)
 
 
+if let rawSource = Loader.read(file: "/Users/janum/Dropbox/Development/Teddy/Compiler/main.teddy") {
 
-
-if let source = Loader.read(file: "/Users/janum/Dropbox/Development/Teddy/Compiler/main.teddy") {
+    let source = Preprocessor.stripComments(from: rawSource)
     
     String.printHeader(text: "Source Input (.teddy)")
     print(source)
