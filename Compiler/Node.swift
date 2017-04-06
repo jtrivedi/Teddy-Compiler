@@ -76,12 +76,6 @@ public struct IfStatementNode: ExpressionType {
 
 public struct IfLetNode: ExpressionType {
 
-    
-    
-//    let testVariable: VariableNode
-//    let unwrappedVariables: [VariableNode]
-//    
-//    let body: [ExpressionType]
 }
 
 
