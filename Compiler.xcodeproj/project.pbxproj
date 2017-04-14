@@ -74,8 +74,8 @@
 		F7FF47B21E450CA600F258DC /* Compiler */ = {
 			isa = PBXGroup;
 			children = (
-				F7193EE81E564DAF00C534B0 /* main.swift */,
 				F7193EEE1E565B1500C534B0 /* main.teddy */,
+				F7193EE81E564DAF00C534B0 /* main.swift */,
 				F7193EEC1E565ABA00C534B0 /* Loader.swift */,
 				F70CF6891E63B182005F5560 /* Preprocessor.swift */,
 				F7FF47B31E450CA600F258DC /* Lexer.swift */,

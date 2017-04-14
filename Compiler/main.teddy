@@ -1,5 +1,5 @@
 
-enum Expr {
+enum ArithmeticType {
     case Add        (lhs: Int, rhs: Int);
     case Subtract   (lhs: Int, rhs: Int);
     case Multiply   (lhs: Int, rhs: Int);
@@ -12,18 +12,13 @@ func squared(a: Int) -> Int {
 
 func main() -> Int {
     
-    let i: Int = 500;
-    let cat: String = "moo";
-    print(cat, i);
+    let message: String = "Hello, world!";
+    print(message);
     
-    let expr: Expr = .Add(5, 10);
+    let i: Int = 100 + 50;
     
-    if let expr: Expr = .Add(a, b) {
-        
-    }
-
     if (true) {
-        print("moo");
+        print(squared(i));
     }
     
     return 0;
