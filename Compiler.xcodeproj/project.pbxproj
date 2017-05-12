@@ -58,7 +58,7 @@
 		F7FF47A71E450CA600F258DC = {
 			isa = PBXGroup;
 			children = (
-				F7FF47B21E450CA600F258DC /* Compiler */,
+				F7FF47B21E450CA600F258DC /* Teddy Compiler */,
 				F7FF47B11E450CA600F258DC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -71,7 +71,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		F7FF47B21E450CA600F258DC /* Compiler */ = {
+		F7FF47B21E450CA600F258DC /* Teddy Compiler */ = {
 			isa = PBXGroup;
 			children = (
 				F7193EEE1E565B1500C534B0 /* main.teddy */,
@@ -85,6 +85,7 @@
 				F7EEA2381E5E980400EC8E5E /* Enum.swift */,
 				F7193EE61E564CEB00C534B0 /* Utilities.swift */,
 			);
+			name = "Teddy Compiler";
 			path = Compiler;
 			sourceTree = "<group>";
 		};
@@ -115,7 +116,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0810;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "Janum Trivedi";
 				TargetAttributes = {
 					F7FF47AF1E450CA600F258DC = {
@@ -180,6 +181,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -228,6 +230,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -247,6 +250,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
 			name = Release;
 		};
