@@ -2,9 +2,8 @@
 // Loader.swift
 // Teddy Compiler
 //
-// Created by Janum Trivedi on 2/16/17.
-//
-// Copyright (c) 2015 Janum Trivedi (http://janumtrivedi.com/)
+// Created on 2/16/17.
+// Copyright (c) 2017 Janum Trivedi (http://janumtrivedi.com/)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
