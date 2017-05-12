@@ -82,12 +82,6 @@ public extension String {
         print(String(repeating: "-", count: width));
         
         print()
-        
-        
-//        cout << "----------------------------------------" << endl;
-//        cout << "               EECS 183                 " << endl;
-//        cout << "          Rock-Paper-Scissors           " << endl;
-//        cout << "----------------------------------------" << endl << endl;
     }
     
 }

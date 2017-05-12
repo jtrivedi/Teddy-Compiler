@@ -36,7 +36,7 @@
 		F7193EE81E564DAF00C534B0 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		F7193EEA1E56597F00C534B0 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		F7193EEC1E565ABA00C534B0 /* Loader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
-		F7193EEE1E565B1500C534B0 /* main.teddy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.teddy; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		F7193EEE1E565B1500C534B0 /* main.teddy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.teddy; path = Compiler/main.teddy; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		F7193EEF1E5C083A00C534B0 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		F7193EF11E5C10CE00C534B0 /* CodeGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeGen.swift; sourceTree = "<group>"; };
 		F7EEA2381E5E980400EC8E5E /* Enum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enum.swift; sourceTree = "<group>"; };

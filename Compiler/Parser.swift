@@ -145,7 +145,6 @@ public class Parser {
             expr = conditionalExpression
         }
         
-        
         let block = try parseBlock()
         
         return IfStatementNode(conditional: expr, body: block)
@@ -222,6 +221,17 @@ public class Parser {
         return EnumDefinitionNode(name: enumName, cases: cases)
     }
     
+    func parseEnumCase(enumType: TypeNode) throws -> EnumNode {
+        guard case Token.T_Period() = popCurrentToken() else {
+            throw ParseError.expectedCharacter(".")
+        }
+        
+        let caseName = try readIdentifier()
+        let arguments = try parseExpressionCallList()
+        
+        return EnumNode(enumName: enumType.name, caseName: caseName, arguments: arguments)
+    }
+    
     func parseReturn() throws -> ReturnNode {
         guard case Token.T_Return() = popCurrentToken() else {
             throw ParseError.expectedReturn
@@ -246,17 +256,6 @@ public class Parser {
         let _ = popCurrentToken()
         
         return PrintNode(printExpressions: expressions)
-    }
-    
-    func parseEnumCase(enumType: TypeNode) throws -> EnumNode {
-        guard case Token.T_Period() = popCurrentToken() else {
-            throw ParseError.expectedCharacter(".")
-        }
-        
-        let caseName = try readIdentifier()
-        let arguments = try parseExpressionCallList()
-        
-        return EnumNode(enumName: enumType.name, caseName: caseName, arguments: arguments)
     }
     
     func parseVariableDeclaration() throws -> ExpressionType {

@@ -1,15 +1,4 @@
 
-enum ArithmeticType {
-    case Add        (lhs: Int, rhs: Int);
-    case Subtract   (lhs: Int, rhs: Int);
-    case Multiply   (lhs: Int, rhs: Int);
-    case Divide     (lhs: Int, rhs: Int);
-}
-
-func squared(a: Int) -> Int {
-    return a * a;
-}
-
 func main() -> Int {
     
     let message: String = "Hello, world!";

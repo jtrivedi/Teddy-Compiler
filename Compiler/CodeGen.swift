@@ -18,8 +18,8 @@ public enum Language {
 
 public enum Library: String {
     case iostream = "#include <iostream>"
-    case stdlib = "#include <stdlib.h>"
-    case stdio = "#include <stdio.h>"
+    case stdlib   = "#include <stdlib.h>"
+    case stdio    = "#include <stdio.h>"
 }
 
 public struct CodeGenerator {
@@ -35,11 +35,6 @@ public struct CodeGenerator {
     
     func emitHeader() {
         print(String.returnCommentHeader(text: "Compiled with the Teddy Compiler. Copyright © Janum Trivedi"))
-    }
-    
-    func emitNamespace() {
-        let namespace = "using namespace std;"
-        print(namespace)
     }
     
     func emitLibraryIncludes(libraries: Library...) {
@@ -75,7 +70,6 @@ extension PrintNode: IREmitable {
         case .c:
             return printExpressions.map { return "printf(\"%s\\n\", \($0.emit(to: language)));" }.joined(separator: "\n")
         }
-        
     }
 }
 
@@ -104,21 +98,11 @@ extension TypeNode: IREmitable {
 
 extension IfStatementNode: IREmitable {
     public func emit(to language: Language) -> IR {
-        
         var IR = ""
-        
         IR.append("if (\(self.conditional.emit(to: language))) {\n")
         IR.append(body.map { "\t" + $0.emit(to: language) }.joined(separator: "\n"))
-        
         IR.append("}")
-        
         return IR
-    }
-}
-
-extension IfLetNode: IREmitable {
-    public func emit(to language: Language) -> IR {
-        return ""
     }
 }
 
