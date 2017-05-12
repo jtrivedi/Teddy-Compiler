@@ -11,6 +11,8 @@ This project is thus the Teddy **[compiler](https://en.wikipedia.org/wiki/Compil
 
 It’s currently half-baked, but I hope to continually refactor it and add more documentation.
 
+Check out the demo **[here](#demo)**.
+
 ### Why?
 I built Teddy as an educational project to learn compiler construction. The project itself is small and modular enough that a beginner could understand its design, but not not so trivial that it only compiles simple expressions like `(2 + 2)`.
 
@@ -146,3 +148,114 @@ Teddy is my friend’s very handsome cat. Here’s a photo.
 
 ![alt tag](https://github.com/jtrivedi/Teddy/raw/master/teddy.jpg)
 
+### Demo
+
+For the following Teddy code:
+
+```Swift
+func main() -> Int {
+    let message: String = "Hello, world!";
+    
+    if (true) {
+        print(message);
+    }
+    
+    return 0;
+}
+```
+
+The compiler will produce the following output (for the lexing, parsing, and code-generation stages):
+
+```
+----------------------------------------------------------------------------------------------------
+                                                                                                    
+                                          Lexical Analysis                                          
+                                                                                                    
+----------------------------------------------------------------------------------------------------
+
+T_Function
+T_Identifier("main")
+T_ParensOpen
+T_ParensClose
+T_Arrow
+T_Integer
+T_BraceOpen
+T_Let
+T_Identifier("message")
+T_Colon
+T_String
+T_Equal
+T_StringConstant("\"Hello, world!\"")
+T_Semicolon
+T_If
+T_ParensOpen
+T_BoolConstant(true)
+T_ParensClose
+T_BraceOpen
+T_Print
+T_ParensOpen
+T_Identifier("message")
+T_ParensClose
+T_Semicolon
+T_BraceClose
+T_Return
+T_IntegerConstant(0)
+T_Semicolon
+T_BraceClose
+----------------------------------------------------------------------------------------------------
+                                                                                                    
+                                    Parsing & Semantic Analysis                                    
+                                                                                                    
+----------------------------------------------------------------------------------------------------
+
+▿ 1 element
+  ▿ Compiler.FunctionNode
+    ▿ prototype: Compiler.PrototypeNode
+      - name: "main"
+      - arguments: 0 elements
+      ▿ returnType: Compiler.TypeNode
+        - name: "Int"
+    ▿ body: 3 elements
+      ▿ Compiler.AssignExpression
+        ▿ variable: Compiler.VariableNode
+          - mutability: Compiler.Mutability.immutable
+          ▿ type: Compiler.TypeNode
+            - name: "String"
+          - identifier: "message"
+        ▿ value: Compiler.StringNode
+          - value: "\"Hello, world!\""
+      ▿ Compiler.IfStatementNode
+        ▿ conditional: Compiler.BoolNode
+          - value: true
+        ▿ body: 1 element
+          ▿ Compiler.PrintNode
+            ▿ printExpressions: 1 element
+              ▿ Compiler.FieldAccessNode
+                - identifier: "message"
+      ▿ Compiler.ReturnNode
+        ▿ returnExpression: Compiler.IntegerNode
+          - value: 0
+----------------------------------------------------------------------------------------------------
+                                                                                                    
+                                    Code Generation (Target: C)                                    
+                                                                                                    
+----------------------------------------------------------------------------------------------------
+
+/*
+----------------------------------------------------------------------------------------------------
+                                                                                                    
+                    Compiled with the Teddy Compiler. Written by Janum Trivedi.                    
+                                                                                                    
+----------------------------------------------------------------------------------------------------
+*/
+
+#include <stdio.h>
+int main() {
+	char* message = "Hello, world!";
+	if (1) {
+	  printf("%s\n", message);
+  }
+	return 0;
+}
+
+```
