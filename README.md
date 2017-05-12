@@ -20,18 +20,23 @@ A **compiler** is simply a program that accepts text of a certain syntax (i.e., 
 There are 5 major “phases” of a compiler:
 
 1. **Lexical Analysis**
+
 Breaking source code up into a series of tokens using regexes.
 
 2. **Parsing**
+
 Using the tokens to built an Abstract Syntax Tree to represent the program.
 
 3. **Semantic Analysis** 
+
 Verifying the program and AST are correct (types match, variables are defined in scope, etc.)
 
 4. **Code Generation**
+
 Translating and “emitting” each node in the AST into the target language.
 
 5. **Optimization**
+
 Optimizing the generated code to increase performance (ex. removing dead code, unrolling loops, strength reduction, etc.)
 
 
@@ -41,15 +46,19 @@ Teddy implements **3 stages**: lexing, parsing, and code generation. Semantic an
 Each stage has its own file:
 
 1. **Loader.swift**
+
 Read the text from the Teddy source code file.
 
 2. **Preprocessor.swift**
+
 Strips comments from the source code.
 
 3. **Lexer.swift**
+
 Breaks up the source code into an array of tokens using regular expressions and returns them.
 
 4. **Parser.swift**
+
 Takes the tokens and creates an abstract syntax tree. The Teddy parser is a **top-down recursive descent parser**.
 
 The parser is probably the most intimidating part of the project, but is actually quite simple once you have the intuition of how a RDP works. More on this later.
@@ -59,6 +68,7 @@ The parser is probably the most intimidating part of the project, but is actuall
 Walk through the AST and call the `emit()` function on each node, which prints the node’s equivalent C code.
 
 * **Node.swift**
+
 Defines all possible AST nodes (ex. IntegerNode, AssignmentExpression, PrintNode, etc.).
 
 
