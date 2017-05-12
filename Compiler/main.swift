@@ -27,7 +27,7 @@
 //
 // Replace this with your own absolute path to main.teddy (included in this project).
 //
-let teddyAbsolutePath = "/Users/janum/Dropbox/Development/Teddy/Compiler/main.teddy"
+let teddyAbsolutePath = "/Users/janum/Teddy/Compiler/main.teddy"
 
 if let rawSource = Loader.read(file: teddyAbsolutePath) {
 
