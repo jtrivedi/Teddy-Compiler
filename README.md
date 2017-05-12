@@ -3,9 +3,9 @@
 ## What is Teddy?
 I made up a small language called **Teddy**. Its syntax is very similar to Swift, but with more restrictions so as to make its compiler more approachable.
 
-This project is thus the Teddy **compiler**. That is, it’s a program written in Swift that compiles Teddy source code into C.
+This project is thus the Teddy **[compiler](https://en.wikipedia.org/wiki/Compiler)**. That is, it’s a program written in Swift that compiles Teddy source code into C.
 
-It’s currently very half-baked, but I hope to continually refactor it and add more documentation.
+It’s currently half-baked, but I hope to continually refactor it and add more documentation.
 
 ## Why?
 I built Teddy as an educational project to learn compiler construction. The project itself is small and modular enough that a beginner could understand its design, but not not so trivial that it only compiles simple expressions like `(2 + 2)`.
@@ -13,31 +13,31 @@ I built Teddy as an educational project to learn compiler construction. The proj
 Teddy is also a dependency-free project. This means each step of the compilation process (lexing, parsing, and code-generation) is implemented in Swift, from scratch.
 
 ##  Compilers Overview
-I’ll assume you’re interested in learning how compilers (and thus languages) are built, but that you don’t have prior experience. That’s great! Here’s a quick overview of how a compiler works (and thusly how this project is architected).
+I’ll assume you’re interested in learning how compilers (and thus languages) are built, but that you don’t have prior experience. That’s great! Here’s a quick overview of how a compiler works. The project is structured in this way as well.
 
-A **compiler** is simply a program that accepts text of a certain syntax (i.e., our programming language’s syntax) and translates it into another language (i.e., the target language). It’s common for target languages to be assembly (or a similarly lower-level language), but this is not a requirement. Teddy compiles down to C for simplicity’s sake.
+A compiler is simply a program that accepts text of a certain syntax (i.e., our programming language’s syntax) and translates it into another language (i.e., the target language). It’s common for target languages to be assembly (or a similarly lower-level language), but this is not a requirement. Teddy compiles down to C for simplicity’s sake.
 
 There are 5 major “phases” of a compiler:
 
-1. **Lexical Analysis**
+1. **[Lexical Analysis](https://en.wikipedia.org/wiki/Lexical_analysis)**
 
-Breaking source code up into a series of tokens using regexes.
+> Breaking source code up into a series of tokens using regexes.
 
-2. **Parsing**
+2. **[Parsing](https://en.wikipedia.org/wiki/Recursive_descent_parser)**
 
-Using the tokens to built an Abstract Syntax Tree to represent the program.
+> Using the tokens to built an Abstract Syntax Tree to represent the program.
 
-3. **Semantic Analysis** 
+3. **[Semantic Analysis](http://home.adelphi.edu/~siegfried/cs372/372l8.pdf)** 
 
-Verifying the program and AST are correct (types match, variables are defined in scope, etc.)
+> Verifying the program and AST are correct (types match, variables are defined in scope, etc.)
 
-4. **Code Generation**
+4. **[Code Generation](https://en.wikipedia.org/wiki/Code_generation_(compiler))**
 
-Translating and “emitting” each node in the AST into the target language.
+> Translating and “emitting” each node in the AST into the target language.
 
-5. **Optimization**
+5. **[Optimization](https://en.wikipedia.org/wiki/Optimizing_compiler)**
 
-Optimizing the generated code to increase performance (ex. removing dead code, unrolling loops, strength reduction, etc.)
+> Optimizing the generated code to increase performance (ex. removing dead code, unrolling loops, strength reduction, etc.)
 
 
 ## Teddy Overview
@@ -47,29 +47,27 @@ Each stage has its own file:
 
 1. **Loader.swift**
 
-Read the text from the Teddy source code file.
+> Read the text from the Teddy source code file.
 
 2. **Preprocessor.swift**
 
-Strips comments from the source code.
+> Strips comments from the source code.
 
 3. **Lexer.swift**
 
-Breaks up the source code into an array of tokens using regular expressions and returns them.
+> Breaks up the source code into an array of tokens using regular expressions and returns them.
 
 4. **Parser.swift**
 
-Takes the tokens and creates an abstract syntax tree. The Teddy parser is a **top-down recursive descent parser**.
-
-The parser is probably the most intimidating part of the project, but is actually quite simple once you have the intuition of how a RDP works. More on this later.
+> Takes the tokens and creates an abstract syntax tree. The Teddy parser is a **top-down recursive descent parser**. The parser is probably the most intimidating part of the project, but is actually quite simple once you have the intuition of how a RDP works. More on this later.
 
 5. **CodeGen.swift**
 
-Walk through the AST and call the `emit()` function on each node, which prints the node’s equivalent C code.
+> Walk through the AST and call the `emit()` function on each node, which prints the node’s equivalent C code.
 
 * **Node.swift**
 
-Defines all possible AST nodes (ex. IntegerNode, AssignmentExpression, PrintNode, etc.).
+> Defines all possible AST nodes (ex. IntegerNode, AssignmentExpression, PrintNode, etc.).
 
 
 ## Getting Started
@@ -141,5 +139,6 @@ I wanted to implement Swift-like associated enums in Teddy. Enum definitions and
 **Who is Teddy?**
 
 Teddy is my friend’s very handsome cat. Here’s a photo.
+
 ![alt tag](https://github.com/jtrivedi/Teddy/raw/master/teddy.jpg)
 
