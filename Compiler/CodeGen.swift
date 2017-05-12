@@ -34,7 +34,7 @@ public struct CodeGenerator {
     }
     
     func emitHeader() {
-        print(String.returnCommentHeader(text: "Compiled with the Teddy Compiler. Copyright © Janum Trivedi"))
+        print(String.returnCommentHeader(text: "Compiled with the Teddy Compiler. Written by Janum Trivedi."))
     }
     
     func emitLibraryIncludes(libraries: Library...) {

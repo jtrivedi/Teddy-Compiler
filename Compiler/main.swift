@@ -6,7 +6,10 @@
 //  Copyright © 2017 Janum Trivedi. All rights reserved.
 //
 
-if let rawSource = Loader.read(file: "/Users/janum/Dropbox/Development/Teddy/Compiler/main.teddy") {
+// Replace this with your own absolute path to main.teddy (included in this project).
+let teddyAbsolutePath = "/Users/janum/Teddy/Compiler/main.teddy"
+
+if let rawSource = Loader.read(file: teddyAbsolutePath) {
 
     let source = Preprocessor.stripComments(from: rawSource)
     
@@ -23,7 +26,6 @@ if let rawSource = Loader.read(file: "/Users/janum/Dropbox/Development/Teddy/Com
     
     let parser = Parser(tokens: tokens)
     let ast = try parser.parse()
-
     dump(ast)
 
     
