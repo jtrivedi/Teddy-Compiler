@@ -1,18 +1,22 @@
-# The Teddy Programming Language and Compiler
+<p align="center">
+  <img src="https://github.com/jtrivedi/Teddy-Compiler/blob/master/logo.png?raw=true" width=400 alt="Teddy"/>
+</p>
 
-## What is Teddy?
-I made up a small language called **Teddy**. Its syntax is very similar to Swift, but with more restrictions so as to make its compiler more approachable.
+## The Teddy Programming Language and Compiler
+
+### What is Teddy?
+I made up a small language called Teddy. Its syntax is very similar to Swift, but with more restrictions so as to make its compiler more approachable.
 
 This project is thus the Teddy **[compiler](https://en.wikipedia.org/wiki/Compiler)**. That is, it’s a program written in Swift that compiles Teddy source code into C.
 
 It’s currently half-baked, but I hope to continually refactor it and add more documentation.
 
-## Why?
+### Why?
 I built Teddy as an educational project to learn compiler construction. The project itself is small and modular enough that a beginner could understand its design, but not not so trivial that it only compiles simple expressions like `(2 + 2)`.
 
 Teddy is also a dependency-free project. This means each step of the compilation process (lexing, parsing, and code-generation) is implemented in Swift, from scratch.
 
-##  Compilers Overview
+###  Compilers Overview
 I’ll assume you’re interested in learning how compilers (and thus languages) are built, but that you don’t have prior experience. That’s great! Here’s a quick overview of how a compiler works. The project is structured in this way as well.
 
 A compiler is simply a program that accepts text of a certain syntax (i.e., our programming language’s syntax) and translates it into another language (i.e., the target language). It’s common for target languages to be assembly (or a similarly lower-level language), but this is not a requirement. Teddy compiles down to C for simplicity’s sake.
@@ -40,7 +44,7 @@ There are 5 major “phases” of a compiler:
 > Optimizing the generated code to increase performance (ex. removing dead code, unrolling loops, strength reduction, etc.)
 
 
-## Teddy Overview
+### Project Overview
 Teddy implements **3 stages**: lexing, parsing, and code generation. Semantic analysis and optimization can be added later.
 
 Each stage has its own file:
@@ -70,7 +74,7 @@ Each stage has its own file:
 > Defines all possible AST nodes (ex. IntegerNode, AssignmentExpression, PrintNode, etc.).
 
 
-## Getting Started
+### Getting Started
 Open up the project and navigate to `main.swift` (the “driver” of the compiler).  You may have to replace the path to `teddy.swift` with your own absolute path for now. Then just hit run!
 
 It will read in the Teddy code and execute the three compilation stages, logging its progress along the way.
@@ -115,7 +119,7 @@ print("Hello!")
 
 You should expect Teddy to _not_ support something rather than to expect it does. After all, it’s only intended to be an educational compiler.
 
-## FAQ
+### FAQ
 **Why isn’t there more information about the implementation itself?**
 
 I wanted to open-source it first in its current, half-baked form, rather than to never be satisfied with its documentation and never actually ship it.
